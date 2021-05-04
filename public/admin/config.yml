@@ -5,6 +5,20 @@ media_folder: public/images
 public_folder: /images
 publish_mode: editorial_workflow
 
+i18n:
+  # Required and can be one of multiple_folders, multiple_files or single_file
+  # multiple_folders - persists files in `<folder>/<locale>/<slug>.<extension>`
+  # multiple_files - persists files in `<folder>/<slug>.<locale>.<extension>`
+  # single_file - persists a single file in `<folder>/<slug>.<extension>`
+  structure: multiple_folders
+
+  # Required - a list of locales to show in the editor UI
+  locales: [en, de, fr]
+
+  # Optional, defaults to the first item in locales.
+  # The locale to be used for fields validation and as a baseline for the entry.
+  default_locale: en
+
 collections:
   - name: "config"
     label: "Config"
@@ -94,6 +108,7 @@ collections:
     extension: "mdx"
     format: "frontmatter"
     create: true
+    i18n: true
     slug: "{{slug}}"
     identifier_field: slug
     summary: "{{title}}"
@@ -101,18 +116,22 @@ collections:
       - label: "Slug"
         name: "slug"
         widget: "string"
+        i18n: true
       - label: "Title"
         name: "title"
         widget: "string"
+        i18n: true
       - label: "Publish Date"
         name: "date"
         widget: "datetime"
         format: "YYYY-MM-DD"
         dateFormat: "YYYY-MM-DD"
         timeFormat: false
+        i18n: duplicate
       - label: Author
         name: "author"
         widget: relation
+        i18n: duplicate
         collection: "meta"
         file: "authors"
         searchFields:
@@ -123,6 +142,7 @@ collections:
       - label: Tags
         label_singular: "Tag"
         name: "tags"
+        i18n: duplicate
         widget: list
         summary: "{{fields.tag}}"
         field:
@@ -139,3 +159,4 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
+        i18n: true
